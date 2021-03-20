@@ -4,6 +4,6 @@ const router = express.Router();
 
 const controller = require('../controllers/controller');
 
-router.get('/locations/:postcode', controller.getLocations);
+router.get('/locations/:postcode/:filter?', controller.getLocations);
 
 module.exports = router;
