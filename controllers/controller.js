@@ -53,12 +53,14 @@ exports.getSchools = async (postcodeId) => {
         SELECT name,
         (3959 * acos (
             cos(radians(${postcode.latitude}))
-            * cos(radians(lat))
-            * cos(radians(lon) 
+            * cos(radians(postcodes.latitude))
+            * cos(radians(postcodes.longitude) 
             - radians(${postcode.longitude}))
             + sin(radians(${postcode.latitude}))
-            * sin(radians(lat))
-        )) AS distance FROM schools WHERE distance <= 10`);
+            * sin(radians(postcodes.latitude))
+        )) AS distance 
+        FROM schools INNER JOIN postcodes ON schools.postcode_id = postcodes.id 
+        HAVING distance <= 10`);
 }
 
 exports.getAddresses = async (postcodeId) => {
